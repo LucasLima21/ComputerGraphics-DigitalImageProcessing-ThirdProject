@@ -1,7 +1,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <windows.h>
 #include <time.h>
 #include <stdlib.h>
 #include <iostream>
@@ -16,7 +15,6 @@ int initialTime = time(NULL), finalTime, frameCount = 0;
 
 float positions_x[QUANTITY];
 float positions_y[QUANTITY];
-
 void timer(int value){
     glutPostRedisplay();
     glutTimerFunc(refreshMili, timer, 0);
@@ -24,7 +22,17 @@ void timer(int value){
 void drawRotatedTriangle(GLfloat position_x, GLfloat position_y){
     glTranslatef((position_x), (position_y), 0.0f);
     glRotatef(angle, 0, 0, 1);
+    GLfloat black[] = {0.1,0.1,0.1,1.0};
+    GLfloat white[] = {1.0,1.0,1.0,1.0};
+    GLfloat green[] = {0.0,1.0,0.0,1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT, green);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, white);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, white);
+    glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
+
+
     glBegin(GL_TRIANGLES);
+    glNormal3f(1.0,0.0,0.0);
     glColor3f(1.0, 0.0, 0.0);
     glVertex2f(0.0, 5.0);
     glColor3f(0.0, 1.0, 0.0);
@@ -34,6 +42,7 @@ void drawRotatedTriangle(GLfloat position_x, GLfloat position_y){
     glEnd();
 
 }
+
 
 void createTriangles(GLfloat position_x, GLfloat position_y){
     glPushMatrix();
@@ -68,6 +77,20 @@ void reshapeFigure(int w, int h){
     glViewport(0,0, (GLsizei)w, (GLsizei)h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+    //set light intensify and color
+    GLfloat ambientLight[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat diffuseLight[] = {0.8, 0.8, 0.8, 1.0};
+    GLfloat specularLight[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat lightPosition[] = {0.0, 0.0, 0.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+
     gluOrtho2D(int(-QUANTITY/EXHIBITION_PROP), int(QUANTITY/EXHIBITION_PROP), int(-QUANTITY/EXHIBITION_PROP), int(QUANTITY/EXHIBITION_PROP));
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
