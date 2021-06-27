@@ -28,7 +28,7 @@ void drawTriangle(){
 
 
     glBegin(GL_TRIANGLES);
-    glNormal3f(1.0,0.0,0.0);
+    glNormal3f(0.0,0.0,1.0);
     glColor3f(1.0, 0.0, 0.0);
     glVertex2f(0.0, 5.0);
     glColor3f(1.0, 0.0, 0.0);
@@ -55,7 +55,7 @@ void display () {
     GLfloat ambientLight[] = {0.2, 0.2, 0.2, 1.0};
     GLfloat diffuseLight[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat specularLight[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat lightPosition[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat lightPosition[] = {0.0, 0.0, 3.0, 1.0};
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
