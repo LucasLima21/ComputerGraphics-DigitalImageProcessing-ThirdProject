@@ -9,7 +9,7 @@ using namespace std;
 GLfloat angle = 30.0f;
 int refreshMili = 1;
 const int QUANTITY = 5000;
-const int EXHIBITION_PROP = 50;
+const int EXHIBITION_PROP = 40;
 
 int initialTime = time(NULL), finalTime, frameCount = 0;
 
@@ -32,7 +32,7 @@ void drawRotatedTriangle(GLfloat position_x, GLfloat position_y){
 
 
     glBegin(GL_TRIANGLES);
-    glNormal3f(1.0,0.0,0.0);
+    glNormal3f(0.0,0.0,1.0);
     glColor3f(1.0, 0.0, 0.0);
     glVertex2f(0.0, 5.0);
     glColor3f(0.0, 1.0, 0.0);
@@ -85,7 +85,7 @@ void reshapeFigure(int w, int h){
     GLfloat ambientLight[] = {0.2, 0.2, 0.2, 1.0};
     GLfloat diffuseLight[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat specularLight[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat lightPosition[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat lightPosition[] = {0.0, 0.0, 25.0, 1.0};
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
@@ -102,10 +102,11 @@ int main(int argc, char** argv)
     srand((unsigned int) time(NULL));
     int j = QUANTITY - 1;
     for(int i = 0; i < QUANTITY; i++){
-        positions_x[i] = (float(rand())/float((RAND_MAX)) * 50);
-        positions_y[j]=(float(rand())/float((RAND_MAX)) * 50);
+        positions_x[i] = (float(rand())/float((RAND_MAX)) * 100);
+        positions_y[j]=(float(rand())/float((RAND_MAX)) * 100);
         j--;
     }
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB);
     glutInitWindowPosition(int(QUANTITY/EXHIBITION_PROP), int(QUANTITY/EXHIBITION_PROP));
